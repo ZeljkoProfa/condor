@@ -1,0 +1,13 @@
+{
+    "name": "zeljkomiloradovic/condor",
+    "authors": [
+        {
+            "name": "Željko Miloradović",
+            "email": "zemiloradovich@yahoo.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": { "": "app/" }
+    },
+    "require": {}
+}
