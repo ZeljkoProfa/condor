@@ -16,6 +16,6 @@ class VisitsController
      */
     public function getVisitorsCount()
     {
-        
+        var_dump('controller');
     }
 }
