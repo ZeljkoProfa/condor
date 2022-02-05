@@ -2,7 +2,7 @@
 
 namespace Response;
 
-class Response
+class ResponseFormatter
 {
     /**
      * Method returns formatted response with status code and response body 

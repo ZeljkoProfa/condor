@@ -2,7 +2,7 @@
 
 namespace Domain;
 
-use Repository\RepositoryInterface;
+use Repository\DBRepositoryInterface;
 
 /**
  * Class SourceHandler
@@ -10,10 +10,15 @@ use Repository\RepositoryInterface;
  */
 class SourceHandler
 {
+    public function __construct()
+    {
+        
+    }
+
     /**
      * Handles resource db/remote/additional ...
      */
-    public function handleResource()
+    public function handleResources()
     {
         
     }

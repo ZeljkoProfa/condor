@@ -2,6 +2,7 @@
 
 namespace Request;
 
+use Domain\StatisticsCalculator;
 use Exception;
 
 class RequestHandler

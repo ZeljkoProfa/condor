@@ -2,13 +2,16 @@
 
 namespace Controllers;
 
+use Domain\StatisticsCalculator;
 use Formatters\StatisticsCalculatorInterface;
+use Request\HttpRequest;
+use Response\Response;
 
 /**
  * Class VisitsController
  * Injects StatisticsCalculatorInterface
  */
-class VisitsController
+class VisitsController extends AbstractController
 {
     /**
      * Method is hit on /Visitors/getVisitorsCount
@@ -16,6 +19,6 @@ class VisitsController
      */
     public function getVisitorsCount()
     {
-        var_dump('controller');
+        return new Response($this->statisticsCalculator->getStatistics());
     }
 }

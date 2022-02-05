@@ -2,7 +2,7 @@
 
 namespace Repository;
 
-interface RepositoryInterface
+interface DBRepositoryInterface
 {
     public function getDataFromTheSource();
 }

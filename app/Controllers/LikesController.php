@@ -8,7 +8,7 @@ use Formatters\StatisticsCalculatorInterface;
  * Class LikesController
  * Injects StatisticsCalculatorInterface
  */
-class LikesController
+class LikesController extends AbstractController
 {
     /**
      * Method is hit on /Visitors/getVisitorsCount
