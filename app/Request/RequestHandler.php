@@ -33,7 +33,13 @@ class RequestHandler
         
         $controller->$actionName();
     }
-    
+
+    /**
+     * Get controllers fully qualified name
+     * 
+     * @param $controllerName
+     * @return string
+     */
     private function getControllerName($controllerName)
     {
         return sprintf('%s%s%s%s',

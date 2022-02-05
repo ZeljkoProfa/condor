@@ -4,6 +4,7 @@ namespace Controllers;
 
 use Domain\StatisticsCalculator;
 use Repository\AdditionalAnalyticsDBRepository;
+use Repository\DataCollector;
 use Repository\DBDBRepository;
 use Repository\RemoteServiceDBRepository;
 use Request\HttpRequest;
@@ -18,8 +19,17 @@ abstract class AbstractController
     /**
      * @var StatisticsCalculator
      */
-    protected $statisticsCalculator;
+    protected $data;
 
+    /**
+     * @var DataCollector
+     */
+    protected $dataCollector;
+
+    /**
+     * AbstractController constructor.
+     * @param HttpRequest $request
+     */
     public function __construct(HttpRequest $request)
     {
         $this->request = $request;
@@ -28,10 +38,12 @@ abstract class AbstractController
         $remoteRepository = new RemoteServiceDBRepository();
         $additionalRepository = new AdditionalAnalyticsDBRepository();
         
-        $this->statisticsCalculator = new StatisticsCalculator(
+        $this->dataCollector = new DataCollector(
             $dbRepository,
             $remoteRepository,
             $additionalRepository
         );
+        
+        $this->data = $this->dataCollector->combineData();
     }
 }

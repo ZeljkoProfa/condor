@@ -11,6 +11,6 @@ class RemoteServiceDBRepository implements RemoteServiceRepositoryInterface
      */
     public function getDataFromTheSource()
     {
-        (new RemoteData())->getData();
+        return (new RemoteData())->getData();
     }
 }
