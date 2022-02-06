@@ -3,6 +3,7 @@
 namespace Statistics;
 
 use Exception;
+use Response\Response;
 
 /**
  * Class StatisticsCalculator
@@ -28,7 +29,7 @@ class StatisticsHandler
     }
 
     /**
-     * Calculate statistics according given parameters
+     * Calculate statistics according to given parameters
      * 
      * @param $params
      * @return array
@@ -37,7 +38,7 @@ class StatisticsHandler
     private function calculateStatistics($params)
     {
         if (!isset($params['year'])) {
-            throw new Exception('Missing parameter: year.', 406);
+            Response::handleException('Missing parameter: year.', 406);
         }
         
         if (!$params['month']) {

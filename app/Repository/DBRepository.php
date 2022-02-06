@@ -4,7 +4,7 @@ namespace Repository;
 
 use FakeData\DbData;
 
-class DBDBRepository implements DBRepositoryInterface
+class DBRepository implements DBRepositoryInterface
 {
     /**
      * Get Data from DB

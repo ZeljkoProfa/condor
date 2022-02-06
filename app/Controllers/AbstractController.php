@@ -10,7 +10,7 @@ use DataTransformers\DBDataTransformer;
 use DataTransformers\GoogleAnalyticsDataTransformer;
 use DataTransformers\PositiveGaysDataTransformer;
 use Statistics\StatisticsHandler;
-use Repository\DBDBRepository;
+use Repository\DBRepository;
 use Request\HttpRequest;
 use Validators\RequestMethodValidator;
 use Exception;
@@ -45,7 +45,7 @@ abstract class AbstractController
     {
         $this->request = $request;
         
-        $dbRepository = new DBDBRepository();
+        $dbRepository = new DBRepository();
         $googleClient = new GoogleAnalyticsClient();
         $positiveGuysClient = new PositiveGuysClient();
         

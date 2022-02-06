@@ -2,7 +2,7 @@
 
 namespace Request;
 
-use Domain\StatisticsHandler;
+use Response\Response;
 use Exception;
 
 class RequestHandler
@@ -12,8 +12,7 @@ class RequestHandler
     const CONTROLLER_SUFFIX = 'Controller';
 
     /**
-     * Method handles request / decides which controller is used.
-     * Returns response from controller.
+     * Method handles request / decides which controller is used and calls it
      * 
      * @throws Exception
      */
@@ -26,9 +25,13 @@ class RequestHandler
         $actionName = $request->getActionName();
 
         if (!class_exists($controllerFullyQualifiedName)) {
-            throw new Exception('Resource not found!', 404);
+            Response::handleException('Resource not found!', 404);
         }
-        
+
+        if (!method_exists($controllerFullyQualifiedName, $actionName)) {
+            Response::handleException('Resource not found!', 404);
+        }
+
         $controller = new $controllerFullyQualifiedName($request);
         
         $controller->$actionName();

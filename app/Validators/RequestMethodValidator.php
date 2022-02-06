@@ -3,6 +3,7 @@
 namespace Validators;
 
 use Exception;
+use Response\Response;
 
 class RequestMethodValidator
 {
@@ -16,7 +17,7 @@ class RequestMethodValidator
     public static function validateRequest($requestType, $configRequestValue)
     {
         if (!strtolower($requestType) === $configRequestValue) {
-            throw new Exception('Wrong Request method for this endpoint.', 406);
+            Response::handleException('Wrong Request method for this endpoint.', 406);
         }
     }
 }

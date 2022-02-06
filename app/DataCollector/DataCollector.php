@@ -12,10 +12,19 @@ use Repository\DBRepositoryInterface;
 class DataCollector
 {
     // Repos and Clients
+    /**
+     * @var DBRepositoryInterface 
+     */
     private $dbRepository;
 
+    /**
+     * @var GoogleAnalyticsInterface 
+     */
     private $googleAnalytics;
 
+    /**
+     * @var PositiveGuysInterface 
+     */
     private $positiveGuys;
 
     // Data Transformers
