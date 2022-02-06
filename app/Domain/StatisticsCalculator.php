@@ -36,7 +36,7 @@ class StatisticsCalculator
      */
     private function calculateStatistics($params)
     {
-        if (!$params['year']) {
+        if (!isset($params['year'])) {
             throw new Exception('Missing parameter: year.', 406);
         }
         

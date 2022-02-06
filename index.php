@@ -7,5 +7,6 @@ use Request\RequestHandler;
 require_once __DIR__ . '/vendor/autoload.php';
 
 $request = new RequestHandler();
-echo $request->handle();
+$request->handle();
+
 die;

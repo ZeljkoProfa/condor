@@ -2,7 +2,7 @@
 
 namespace Repository;
 
-use Repository\FakeData\DbData;
+use FakeData\DbData;
 
 class DBDBRepository implements DBRepositoryInterface
 {

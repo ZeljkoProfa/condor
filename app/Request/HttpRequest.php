@@ -57,6 +57,11 @@ class HttpRequest
     {
         return $this->parameters;
     }
+    
+    public function getRequestMethod()
+    {
+        return $this->requestMethod;
+    }
 
     /**
      * Set request data to self.
@@ -85,11 +90,17 @@ class HttpRequest
     {
         if ($this->requestMethod === 'get') {
             $this->parameters = $_GET;
+            
+            return;
         }
 
         if ($this->requestMethod === 'post') {
             $this->parameters = $_POST;
+            
+            return;
         }
+
+        $this->parameters = $_GET;
     }
 
     /**

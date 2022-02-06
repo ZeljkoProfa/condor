@@ -2,7 +2,6 @@
 
 namespace Controllers;
 
-use Domain\StatisticsCalculator;
 use Response\Response;
 use Exception;
 
@@ -19,10 +18,10 @@ class VisitsController extends AbstractController
      * @return Response
      * @throws Exception
      */
-    public function getVisitorsCount()
+    public function get()
     {
-        $statisticCalculator = new StatisticsCalculator();
+        parent::get();
         
-        return new Response($statisticCalculator->getStatistics($this->data, $this->request->getParams()));
+        return new Response($this->statisticsCalc->getStatistics($this->data, $this->request->getParams()));
     }
 }

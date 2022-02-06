@@ -2,12 +2,15 @@
 
 namespace Controllers;
 
+use Config\Config;
+use Clients\GoogleAnalyticsClient;
+use Clients\PositiveGuysClient;
+use DataCollector\DataCollector;
 use Domain\StatisticsCalculator;
-use Repository\AdditionalAnalyticsDBRepository;
-use Repository\DataCollector;
 use Repository\DBDBRepository;
-use Repository\RemoteServiceDBRepository;
 use Request\HttpRequest;
+use Validators\RequestMethodValidator;
+use Exception;
 
 abstract class AbstractController
 {
@@ -27,6 +30,11 @@ abstract class AbstractController
     protected $dataCollector;
 
     /**
+     * @var StatisticsCalculator 
+     */
+    protected $statisticsCalc;
+
+    /**
      * AbstractController constructor.
      * @param HttpRequest $request
      */
@@ -35,15 +43,48 @@ abstract class AbstractController
         $this->request = $request;
         
         $dbRepository = new DBDBRepository();
-        $remoteRepository = new RemoteServiceDBRepository();
-        $additionalRepository = new AdditionalAnalyticsDBRepository();
+        $googleClient = new GoogleAnalyticsClient();
+        $positiveGuysClient = new PositiveGuysClient();
         
         $this->dataCollector = new DataCollector(
             $dbRepository,
-            $remoteRepository,
-            $additionalRepository
+            $googleClient,
+            $positiveGuysClient
         );
         
         $this->data = $this->dataCollector->combineData();
+        $this->statisticsCalc = new StatisticsCalculator();
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function get()
+    {
+        RequestMethodValidator::validateRequest($this->request->getRequestMethod(), Config::GET_REQUEST);
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function post()
+    {
+        RequestMethodValidator::validateRequest($this->request->getRequestMethod(), Config::POST_REQUEST);
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function put()
+    {
+        RequestMethodValidator::validateRequest($this->request->getRequestMethod(), Config::PUT_REQUEST);
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function delete()
+    {
+        RequestMethodValidator::validateRequest($this->request->getRequestMethod(), Config::DELETE_REQUEST);
     }
 }
