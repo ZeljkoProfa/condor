@@ -22,6 +22,6 @@ class VisitsController extends AbstractController
     {
         parent::get();
         
-        return new Response($this->statisticsCalc->getStatistics($this->data, $this->request->getParams()));
+        return new Response($this->statisticsHandler->getStatistics($this->data, $this->request->getParams()));
     }
 }

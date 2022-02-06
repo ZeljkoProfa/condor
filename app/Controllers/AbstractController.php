@@ -6,7 +6,10 @@ use Config\Config;
 use Clients\GoogleAnalyticsClient;
 use Clients\PositiveGuysClient;
 use DataCollector\DataCollector;
-use Domain\StatisticsCalculator;
+use DataTransformers\DBDataTransformer;
+use DataTransformers\GoogleAnalyticsDataTransformer;
+use DataTransformers\PositiveGaysDataTransformer;
+use Statistics\StatisticsHandler;
 use Repository\DBDBRepository;
 use Request\HttpRequest;
 use Validators\RequestMethodValidator;
@@ -20,7 +23,7 @@ abstract class AbstractController
     protected $request;
 
     /**
-     * @var StatisticsCalculator
+     * @var StatisticsHandler
      */
     protected $data;
 
@@ -30,9 +33,9 @@ abstract class AbstractController
     protected $dataCollector;
 
     /**
-     * @var StatisticsCalculator 
+     * @var StatisticsHandler 
      */
-    protected $statisticsCalc;
+    protected $statisticsHandler;
 
     /**
      * AbstractController constructor.
@@ -46,14 +49,21 @@ abstract class AbstractController
         $googleClient = new GoogleAnalyticsClient();
         $positiveGuysClient = new PositiveGuysClient();
         
+        $dbDataTransformer = new DBDataTransformer();
+        $gaDataTransformer = new GoogleAnalyticsDataTransformer();
+        $pgDataTransformer = new PositiveGaysDataTransformer();
+        
         $this->dataCollector = new DataCollector(
             $dbRepository,
             $googleClient,
-            $positiveGuysClient
+            $positiveGuysClient,
+            $dbDataTransformer,
+            $gaDataTransformer,
+            $pgDataTransformer
         );
         
         $this->data = $this->dataCollector->combineData();
-        $this->statisticsCalc = new StatisticsCalculator();
+        $this->statisticsHandler = new StatisticsHandler();
     }
 
     /**

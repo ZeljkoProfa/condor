@@ -4,37 +4,61 @@ namespace DataCollector;
 
 use Clients\GoogleAnalyticsInterface;
 use Clients\PositiveGuysInterface;
+use DataTransformers\DBDataTransformer;
+use DataTransformers\GoogleAnalyticsDataTransformer;
+use DataTransformers\PositiveGaysDataTransformer;
 use Repository\DBRepositoryInterface;
 
 class DataCollector
 {
+    // Repos and Clients
     private $dbRepository;
 
     private $googleAnalytics;
 
     private $positiveGuys;
 
-    private $dbData;
+    // Data Transformers
+    /**
+     * @var DBDataTransformer
+     */
+    private $dbDataTransformer;
 
-    private $googleAnalyticsData;
+    /**
+     * @var GoogleAnalyticsDataTransformer
+     */
+    private $gaDataTransformer;
 
-    private $positiveGuysData;
+    /**
+     * @var PositiveGaysDataTransformer
+     */
+    private $pgDataTransformer;
 
     /**
      * DataCollector constructor.
      * @param DBRepositoryInterface $dbRepository
      * @param GoogleAnalyticsInterface $googleAnalytics
      * @param PositiveGuysInterface $positiveGuys
+     * @param DBDataTransformer $dbDataTransformer
+     * @param GoogleAnalyticsDataTransformer $gaDataTransformer
+     * @param PositiveGaysDataTransformer $pgDataTransformer
      */
     public function __construct(
         DBRepositoryInterface $dbRepository,
         GoogleAnalyticsInterface $googleAnalytics,
-        PositiveGuysInterface $positiveGuys
+        PositiveGuysInterface $positiveGuys,
+        DBDataTransformer $dbDataTransformer,
+        GoogleAnalyticsDataTransformer $gaDataTransformer,
+        PositiveGaysDataTransformer $pgDataTransformer
     )
     {
         $this->dbRepository = $dbRepository;
         $this->googleAnalytics = $googleAnalytics;
         $this->positiveGuys = $positiveGuys;
+        
+        $this->dbDataTransformer = $dbDataTransformer;
+        $this->gaDataTransformer = $gaDataTransformer;
+        $this->pgDataTransformer = $pgDataTransformer;
     }
 
     /**
@@ -44,10 +68,10 @@ class DataCollector
      */
     public function combineData()
     {
-        $this->dbData = $this->dbRepository->getDataFromTheSource();
-        $this->googleAnalyticsData = $this->googleAnalytics->getDataFromTheSource();
-        $this->positiveGuysData = $this->positiveGuys->getDataFromTheSource();
-
-        return [$this->dbData, $this->googleAnalyticsData, $this->positiveGuysData];
+        return [
+            $this->dbDataTransformer->transformData($this->dbRepository->getDataFromTheSource()),
+            $this->gaDataTransformer->transformData($this->googleAnalytics->getDataFromTheSource()),
+            $this->pgDataTransformer->transformData($this->positiveGuys->getDataFromTheSource()),
+        ];
     }
 }

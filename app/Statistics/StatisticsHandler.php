@@ -1,6 +1,6 @@
 <?php
 
-namespace Domain;
+namespace Statistics;
 
 use Exception;
 
@@ -8,7 +8,7 @@ use Exception;
  * Class StatisticsCalculator
  * Injects SourceHandler
  */
-class StatisticsCalculator
+class StatisticsHandler
 {    
     private $data = [];
 
